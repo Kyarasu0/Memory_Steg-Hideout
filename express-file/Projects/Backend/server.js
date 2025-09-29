@@ -24,7 +24,7 @@ const PORT = process.env.PORT || 3000;
 // jsonを読み込めるようにする
 app.use(express.json());
 // cssやjsを読めるようにする
-app.use(express.static(path.join(__dirname, "Frontend")));
+app.use(express.static(path.join(__dirname, "..", "Frontend")));
 
 /*----------ルーティング系----------*/
 app.get("/", (req, res) =>{
