@@ -31,6 +31,10 @@ app.get("/", (req, res) =>{
     res.sendFile(path.join(__dirname, "..", "Frontend", "Home", "Home.html"));
 });
 
+app.get("/CreateHideout", (req, res) => {
+    res.sendFile(path.join(__dirname, "..", "Frontend", "CreateHideout", "CreateHideout.html"));
+});
+
 /*----------サーバー起動----------*/
 app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}`);
