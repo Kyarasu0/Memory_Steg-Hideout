@@ -151,7 +151,7 @@ img{
     transition:background-color 0.1s ease;
 }
 
-/*AIより*/
+/*AIより → ざっくり解読済み*/
 .upload {
     position: relative;
     display: inline-block;
@@ -171,4 +171,133 @@ img{
     justify-content: center;
     align-items: center;
     border-radius: 50%;      /* 完全な円 */
+}
+
+/*AIより*/
+/* モーダルのオーバーレイ */
+#overlay {
+    display: none; /* 初期は非表示 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* モーダルの内容 */
+#modalContent {
+    /*背景設定*/
+    background: rgba(255,255,255,0.3);
+    backdrop-filter: blur(10px);
+
+    /*ボタンのデザイン設定*/
+    border-radius: 20px;
+    border:2px solid white;
+
+    /*余白設定*/
+    padding: 20px;
+    
+    /*大きさ設定*/
+    height: 70%;
+    width: 70%;
+
+    /*位置設定*/
+    display: flex;
+    flex-direction: column;
+
+    overflow: auto;
+}
+
+/* プレビュー画像 */
+#preview img {
+    max-width: 100%;
+    min-width: 80%;   /* 親要素を超えない */
+    max-height: 100%;
+    min-height: 80%;  /* 親要素を超えない */
+    object-fit: contain; /* 縦横比を維持して収める */
+    border-radius: 20px;
+}
+
+#modalContent h1{
+    font-size: 30px;
+    font-family: "GFS Didot";
+    font-weight: normal;
+}
+
+#preview{
+    height: 80%;
+    width: 50%;
+    object-fit: contain;
+    /*スクロールバーの禁止*/
+    overflow: hidden;
+
+    /*位置設定*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.controlOverlay{
+    /*大きさ設定*/
+    height: 10%;
+
+    /*余白設定(height+margin = 30%)*/
+    margin: 5% 0% 2% 0%;
+
+    /*並び替え設定*/
+    display: flex;
+    flex-direction: row;
+
+    /*位置設定*/
+    justify-content: space-between;
+}
+
+.controlOverlay button{
+    /*ボタン枠設定*/
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+
+    /*ボタンの大きさ設定*/
+    height: 100%;
+
+    /*LinkUIの無効化*/
+    color: black;
+    text-decoration: none;
+    display: inline-block;
+    box-sizing: border-box;
+
+    /*文字の大きさ設定*/
+    font-size: 30px;
+    font-family: "GFS Didot";
+
+    /*位置設定*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /*余白設定*/
+    padding: 30px 30px;
+    margin: 0px 20px;
+
+    /*ボタンのデザイン設定*/
+    border-radius: 20px;
+    border:2px solid white;
+
+    /*animation設定*/
+    transition:transform 0.3s ease;
+}
+
+.controlOverlay button:hover{
+    transform: scale(1.1);
+}
+
+.controlOverlay button:active{
+    background-color: rgba(255, 255, 255, 0.7);
+    transition:background-color 0.1s ease;
 }
