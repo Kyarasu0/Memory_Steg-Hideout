@@ -1,40 +1,51 @@
-// import express from "express";みたいな感じ
+// 必要なモジュール読み込み
 const express = require('express');
 const path = require('path');
 const dotenv = require('dotenv').config();
-// ファイル保存用ライブラリ
 const multer = require('multer');
+const { execFile } = require("child_process");
 
 /*----------expressの初期化----------*/
-// expressのままでは使えないのでappに代入
 const app = express();
 
-/*----------file/directory操作の豆知識(今回は自動で反映されているらしい)----------*/
-// 例: import.meta.url = file:///C:/projects/Backend/server.js
-// 例: fileURLToPath(import.meta.url) = C:/projects/Backend/server.js(file:///を取り除いた)
-// const __filename = fileURLToPath(import.meta.url);
-
-// 例: path.dirname(__filename) = C:/projects/Backend(Directory名のみに変換する)
-// const __dirname = path.dirname(__filename);
-/*----------file/directory操作の豆知識(今回は自動で反映されているらしい)----------*/
-
 /*----------port番号の設定系----------*/
-//port番号を設定する
 const PORT = process.env.PORT || 3000;
 
 /*----------use系----------*/
-// jsonを読み込めるようにする
+// JSONを読み込めるようにする
 app.use(express.json());
-// cssやjsを読めるようにする
+// CSSやJSなどの静的ファイルを読み込めるようにする
 app.use(express.static(path.join(__dirname, "..", "Frontend")));
 
 /*----------ルーティング系----------*/
+// ホーム
 app.get("/", (req, res) =>{
     res.sendFile(path.join(__dirname, "..", "Frontend", "Home", "Home.html"));
 });
 
+// CreateHideout ページ
 app.get("/CreateHideout", (req, res) => {
     res.sendFile(path.join(__dirname, "..", "Frontend", "CreateHideout", "CreateHideout.html"));
+});
+
+// C++ 実行ファイルを呼び出すAPI
+app.get("/runCpp", (req, res) => {
+    // separation.cpp を事前に g++ separation.cpp -o separation.exe でコンパイルしておくこと
+    const exePath = path.join(__dirname, "separation.exe"); // Windowsの場合
+    // const exePath = path.join(__dirname, "separation"); // Linux/Macの場合
+
+    execFile(exePath, (error, stdout, stderr) => {
+        if (error) {
+            console.error("エラー:", error);
+            res.status(500).send("C++ 実行中にエラーが発生しました");
+            return;
+        }
+        if (stderr) {
+            console.error("stderr:", stderr);
+        }
+        // C++ の標準出力をそのまま返す
+        res.send(`C++ 実行結果: ${stdout}`);
+    });
 });
 
 /*----------サーバー起動----------*/
@@ -42,4 +53,5 @@ app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}`);
 });
 
-// サーバーを起動するときはProjects/Backend内でnpx nodemon server.jsを実行
+// サーバー起動方法: Projects/Backend 内で
+// npx nodemon server.js
