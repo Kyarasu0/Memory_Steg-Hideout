@@ -4,15 +4,23 @@
         <meta charset="UTF-8">
         <title>Create hideout</title>
         <link rel="stylesheet" href="./CreateHideout.css">
-        <script src="./CreateHideout"></script>
+        <script src="./CreateHideout.js" defer></script>
     </head>
     <body>
         <main class="main-container">
-            <button class="upload">
+            <h1>Memory Steg-Hideout</h1>
+
+            <input type="file" id="fileInput" accept=".jpg,.jpeg" multiple hidden>
+
+            <button id="uploadButton" class="upload">
                 <img src="../Element/UploadIcon.png" alt="none image...">
-                <h1>Upload</h1>
+                <h1>Upload JPG</h1>
+                <span id="fileCount" class="file-count">0</span>
             </button>
         </main>
-        <a href="/">Home</a>
+        <div class="submain">
+            <a href="/">Home</a>
+            <button id="confirm">confirm</button>
+        </div>
     </body>
 </html>

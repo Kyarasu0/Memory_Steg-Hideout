@@ -16,16 +16,19 @@ body{
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+
+    /*並び順設定*/
+    flex-direction: row;
 }
 
 .main-container{
     /*位置設定*/
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
 
     /*大きさ設定*/
-    height: 100%;
+    height: 85%;
     width: 100%;
 
     /*並び順設定*/
@@ -33,12 +36,17 @@ body{
 }
 
 .main-container h1{
-    font-size: 60px;
+    font-size: 30px;
     font-family: "GFS Didot";
     font-weight: normal;
 }
 
-a, button{
+.main-container h1 span{
+    margin: 0px; 
+    font-size: 30px;
+}
+
+.main-container button{
     /*ボタン枠設定*/
     background-color: rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(10px);
@@ -54,7 +62,7 @@ a, button{
 
     /*余白設定*/
     padding: 30px;
-    margin: 0px 30px;
+    margin: 0px 30px 30px 30px;
 
     /*ボタンのデザイン設定*/
     border-radius: 20px;
@@ -80,4 +88,87 @@ img{
     
     /*デザイン設定*/
     border-radius: 20px;
+}
+
+.submain{
+    /*大きさ設定*/
+    height: 8%;
+    width: 100%;
+
+    /*余白設定*/
+    margin-top: 2%;
+    margin-bottom: 2%;
+
+    /*並び順設定*/
+    flex-direction: row;
+    
+    /*位置設定*/
+    display: flex;
+    justify-content: space-between;
+}
+
+.submain a, .submain button{
+    /*ボタン枠設定*/
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+
+    /*ボタンの大きさ設定*/
+    height: 100%;
+
+    /*LinkUIの無効化*/
+    color: black;
+    text-decoration: none;
+    display: inline-block;
+    box-sizing: border-box;
+
+    /*文字の大きさ設定*/
+    font-size: 30px;
+    font-family: "GFS Didot";
+
+    /*位置設定*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /*余白設定*/
+    padding: 30px 30px;
+    margin: 0px 20px;
+
+    /*ボタンのデザイン設定*/
+    border-radius: 20px;
+    border:2px solid white;
+
+    /*animation設定*/
+    transition:transform 0.3s ease;
+}
+
+.submain a:hover, .submain button:hover{
+    transform: scale(1.1);
+}
+
+.submain a:active, .submain button:active{
+    background-color: rgba(255, 255, 255, 0.7);
+    transition:background-color 0.1s ease;
+}
+
+/*AIより*/
+.upload {
+    position: relative;
+    display: inline-block;
+}
+
+.file-count {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    background-color: rgb(254, 143, 143);
+    color: white;
+    font-size: 30px;        /* フォントサイズ */
+    font-weight: bold;
+    width: 60px;             /* 丸の直径 */
+    height: 60px;            /* 高さも同じ */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;      /* 完全な円 */
 }
