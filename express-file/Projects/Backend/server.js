@@ -41,6 +41,10 @@ app.get("/StepIntoHideout", (req, res) => {
     res.sendFile(path.join(__dirname, "..", "Frontend", "StepIntoHideout", "StepIntoHideout.html"));
 });
 
+app.get('/gallery/:galleryId', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'Frontend', 'Gallery', 'Gallery.html'));
+});
+
 // ZIPの解凍処理と初期データの返却
 app.post("/step-in", upload.single("zipFile"), (req, res) => {
     const zipPath = req.file.path;
@@ -67,6 +71,18 @@ app.post("/step-in", upload.single("zipFile"), (req, res) => {
 
     } catch (err) {
         res.status(500).json({ error: "ファイルの処理に失敗しました。" });
+    }
+});
+
+// ギャラリーの存在確認API
+app.get('/api/gallery/check/:galleryId', (req, res) => {
+    const { galleryId } = req.params;
+    const galleryDir = path.join(__dirname, 'tmp', galleryId);
+
+    if (fs.existsSync(galleryDir)) {
+        res.status(200).send(); 
+    } else {
+        res.status(404).send();
     }
 });
 

@@ -24,6 +24,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
 
     /*大きさ設定*/
     height: 100%;
@@ -38,6 +39,61 @@ body {
     font-family: "GFS Didot";
     font-weight: normal;
     color: black;
+}
+
+.search-panel{
+    /*位置設定*/
+    position: absolute;
+    top: 20px;
+    right: 20px;
+
+    /* デザイン */
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    padding: 6px;
+    border-radius: 15px;
+    border: 2px solid white;
+
+    /* 中身の配置 */
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 20px;
+}
+
+/* 検索パネルの中の入力欄 */
+.search-panel input {
+    font-size: 14px;
+    font-family: "GFS Didot";
+    color: black;
+    padding: 4px 10x;
+    border-radius: 10px;
+    border: 1px solid white;
+    background: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    width: 170px;
+}
+
+.search-panel input::placeholder {
+    color: #333;
+}
+
+/* 検索パネルの中のボタン */
+.search-panel button {
+    font-size: 14px;
+    font-family: "GFS Didot";
+    padding: 3px 15px;
+    border-radius: 10px;
+    border: 1px solid white;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: black;
+}
+
+.search-panel button:hover {
+    background: rgba(255, 255, 255, 0.8);
+    transform: scale(1.05);
 }
 
 .home-button {
