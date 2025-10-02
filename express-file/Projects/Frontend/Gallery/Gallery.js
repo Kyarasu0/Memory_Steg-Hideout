@@ -2,6 +2,7 @@ const imageDisplay = document.getElementById('image-display');
 const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
 const pageIndicator = document.getElementById('pageIndicator');
+const closeBtn = document.getElementById('closeBtn');
 
 // ギャラリーの管理情報
 let galleryId = null;
@@ -18,7 +19,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     await fetchPageData(currentPage);
 });
 
-// ページ移動のボタン
+/* --- ボタン系 --- */
+// ページ移動ボタン
 nextBtn.addEventListener('click', () => {
     if (currentPage < totalPages) {
         fetchPageData(currentPage + 1);
@@ -30,7 +32,10 @@ prevBtn.addEventListener('click', () => {
     }
 });
 
+// 閉鎖ボタン
+closeBtn.addEventListener('click', closeGallery);
 
+/* ---関数系--- */
 // 指定されたページの画像データを取得する関数
 async function fetchPageData(page) {
     try {
@@ -47,5 +52,30 @@ async function fetchPageData(page) {
     } catch (error) {
         console.error('Error:', error);
         imageDisplay.innerHTML = '画像の読み込みに失敗しました。';
+    }
+}
+
+// ギャラリーを閉鎖する関数
+async function closeGallery() {
+    if (!confirm('本当にこのギャラリーを閉鎖しますか？')) {
+        return;
+    }
+
+    try {
+        const response = await fetch(`/api/gallery/${galleryId}`, {
+            method: 'DELETE',
+        });
+
+        // 削除時のアナウンス
+        if (response.ok) {
+            alert('ギャラリーを閉鎖しました。');
+            window.location.href = '/';
+        } else {
+            const result = await response.json();
+            alert(`閉鎖に失敗ました。: ${result.error}`);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('エラーが発生しました。');
     }
 }

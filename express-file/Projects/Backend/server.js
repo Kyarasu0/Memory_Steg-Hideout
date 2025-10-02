@@ -99,6 +99,25 @@ app.get('/api/gallery/:galleryId/:page', (req, res) => {
     });
 });
 
+// 指定したギャラリーを削除するAPI
+app.delete('/api/gallery/:galleryId', (req, res) => {
+    const { galleryId } = req.params;
+    const galleryDir = path.join(__dirname, 'tmp', galleryId);
+
+    try {
+        if (!fs.existsSync(galleryDir)) {
+            return res.status(404).json({ error: 'ギャラリーが見つかりません。' });
+        }else {
+            fs.rmSync(galleryDir, { recursive: true, force: true });
+            console.log(`ギャラリー${galleryId}削除`);
+            res.status(200).json({ message: 'ギャラリーを正常に削除しました。' });
+        }
+    } catch (error) {
+        console.error('Error deleting gallery:', error);
+        res.status(500).json({ error: 'ギャラリーの削除に失敗しました。' });
+    }
+});
+
 /*----------サーバー起動----------*/
 app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}`);
