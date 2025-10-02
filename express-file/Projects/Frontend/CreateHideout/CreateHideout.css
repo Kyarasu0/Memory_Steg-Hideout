@@ -176,7 +176,7 @@ img{
 /*AIより*/
 /* モーダルのオーバーレイ */
 #overlay {
-    display: none; /* 初期は非表示 */
+    display: flex; /* 初期は非表示 */
     position: fixed;
     top: 0;
     left: 0;
@@ -185,8 +185,19 @@ img{
     background: rgba(0, 0, 0, 0.7);
     z-index: 1000;
 
-    display: flex;
     justify-content: center;
+    align-items: center;
+}
+
+.display{
+    height: 80%;
+    width: 100%;
+    /*スクロールバーの禁止*/
+    overflow: hidden;
+
+    /*位置設定*/
+    display: flex;
+    justify-content: flex-start;
     align-items: center;
 }
 
@@ -231,7 +242,7 @@ img{
 }
 
 #preview{
-    height: 80%;
+    height: 100%;
     width: 50%;
     object-fit: contain;
     /*スクロールバーの禁止*/
@@ -301,3 +312,103 @@ img{
     background-color: rgba(255, 255, 255, 0.7);
     transition:background-color 0.1s ease;
 }
+
+.edit{
+    height: 100%;
+    width: 50%;
+    /*スクロールバーの禁止*/
+    overflow: hidden;
+
+    /*位置設定*/
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.edit input{
+    /*ボタン枠設定*/
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+
+    /*ボタンの大きさ設定*/
+    height: 15%;
+    width: 90%;
+
+    /*LinkUIの無効化*/
+    color: black;
+    text-decoration: none;
+    display: inline-block;
+    box-sizing: border-box;
+
+    /*文字の大きさ設定*/
+    font-size: 15px;
+    font-family: "GFS Didot";
+
+    /*位置設定*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /*余白設定*/
+    padding: 3px 15px;
+    margin: 0% 2%;
+
+    /*ボタンのデザイン設定*/
+    border-radius: 5px;
+    border:2px solid white;
+
+    /*animation設定*/
+    transition:border-color 0.3s ease;
+}
+
+.edit textarea{
+    /*ボタン枠設定*/
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+
+    /*ボタンの大きさ設定*/
+    height: 70%;
+    width: 90%;
+
+    /*LinkUIの無効化*/
+    color: black;
+    text-decoration: none;
+    display: inline-block;
+    box-sizing: border-box;
+
+    /*文字の大きさ設定*/
+    font-size: 15px;
+    font-family: "GFS Didot";
+
+    /*位置設定*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /*余白設定*/
+    padding: 15px 15px;
+    margin: 0% 2%;
+
+    /*ボタンのデザイン設定*/
+    border-radius: 5px;
+    border:2px solid white;
+
+    /*animation設定*/
+    transition:border-color 0.3s ease;
+}
+
+.edit h3{
+    width: 80%;
+
+    margin: 2% 2%;
+
+    font-family: "GFS Didot";
+    font-weight: normal;
+}
+
+.edit textarea:focus, .edit input:focus {
+    border-color: rgb(161, 250, 195);
+    outline: none;            /* デフォルトの青枠を消す */
+}
+

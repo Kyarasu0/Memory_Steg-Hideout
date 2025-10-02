@@ -6,6 +6,8 @@ const preview = document.getElementById("preview");
 const confirm = document.getElementById("confirm");
 const closeOverlay = document.getElementById("closeOverlay");
 const overlay = document.getElementById("overlay");
+// downloadボタン設定
+const download = document.getElementById("download");
 
 // upload buttonの設定
 uploadButton.addEventListener("click", () => {fileInput.click()});
@@ -25,11 +27,13 @@ confirm.addEventListener("click", () => {
     // 画面の初期化
     preview.innerHTML = "";
 
-    Array.from(fileInput.files).forEach(file => {
+   if(fileInput.files.length > 0){
+        // 最初の一枚を表示
+        const file = fileInput.files[0];
         const img = document.createElement("img");
         img.src = URL.createObjectURL(file);
         preview.appendChild(img);
-    });
+   }
 
     overlay.style.display = "flex";
 
