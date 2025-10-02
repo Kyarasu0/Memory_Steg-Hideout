@@ -1,17 +1,1 @@
 node_modules/
-!node_modules/dotenv/
-!node_modules/append-field!
-!node_modules/adm-zip/
-!node_modules/buffer-from/
-!node_modules/busboy/
-!node_modules/concat-stream/
-!node_modules/minimist/
-!node_modules/mkdirp/
-!node_modules/multer/
-!node_modules/object-assign/
-!node_modules/readable-stream/
-!node_modules/streamsearch/
-!node_modules/string_decoder/
-node_modules/typedarray/
-!node_modules/util-deprecate/
-!node_modules/xtend/
