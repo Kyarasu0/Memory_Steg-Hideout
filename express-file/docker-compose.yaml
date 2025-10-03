@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  app:
+    image: memory_steg-hideout:latest
+    container_name: memory_steg-hideout
+    restart: unless-stopped # 落ちたら自動で再起動
+    ports:
+      - "5000"   # 内部コンテナポート（Nginx経由で外部公開）
+    networks:
+      - app-network # 他のアプリと通信
+
+  nginx:
+    image: nginx:stable-alpine
+    container_name: memory_steg-hideout-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"   # 外部からアクセスするポート
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - app # appの起動後に起動
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

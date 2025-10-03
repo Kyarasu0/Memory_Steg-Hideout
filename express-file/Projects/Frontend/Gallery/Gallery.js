@@ -50,6 +50,7 @@ async function fetchPageData(page) {
         imageDisplay.innerHTML = `<img src="${result.imageUrl}">`;
         document.getElementById('title').textContent = result.title;
         document.getElementById('daily').textContent = result.steganographyText;
+        document.getElementById('galleryId') = result.galleryIdentify;
 
         currentPage = page;
         totalPages = result.totalPages;

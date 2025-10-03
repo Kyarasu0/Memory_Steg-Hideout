@@ -52,7 +52,8 @@ router.get('/api/:galleryId/:page', (req, res) => {
         const title = path.parse(targetImageFile).name;
 
         // C++の実行結果を、steganographyTextとして返す
-        res.json({ 
+        res.json({
+            galleryIdentify: galleryId,
             totalPages: imageFiles.length,
             imageUrl: `/tmp/${galleryId}/${targetImageFile}`,
             title: title, // 写真タイトルを追加

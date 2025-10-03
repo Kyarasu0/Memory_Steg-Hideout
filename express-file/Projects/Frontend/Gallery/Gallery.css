@@ -181,6 +181,11 @@ body h1{
     font-size: 20px;
 }
 
+#galleryIdentify{
+    font-size: 20px;
+    font-family: "GFS Didot";
+}
+
 /*----------submain用----------*/
 .submain{
     /*大きさ設定*/
