@@ -37,6 +37,10 @@ app.get("/", (req, res) =>{
     res.sendFile(path.join(__dirname, "..", "Frontend", "Home", "Home.html"));
 });
 
+app.get("/CreateHideout", (req, res) => {
+    res.sendFile(path.join(__dirname, "..", "Frontend", "CreateHideout", "CreateHideout.html"));
+});
+
 app.get("/StepIntoHideout", (req, res) => {
     res.sendFile(path.join(__dirname, "..", "Frontend", "StepIntoHideout", "StepIntoHideout.html"));
 });
