@@ -5,6 +5,8 @@ const dotenv = require('dotenv').config();
 const fs = require('fs');
 const multer = require('multer');
 const AdmZip = require('adm-zip');
+// ルーティング別ファイルの取り入れ
+const createHideoutRoutes = require('./routes/CreateHideoutRoutes');
 
 /*----------expressの初期化----------*/
 // expressのままでは使えないのでappに代入
@@ -32,13 +34,12 @@ app.use(express.static(path.join(__dirname, "..", "Frontend")));
 // 解凍した画像が入るtmpフォルダ
 app.use('/tmp', express.static(path.join(__dirname, 'tmp')));
 
+// ルーティング別ファイル一覧
+app.use("/CreateHideout", createHideoutRoutes);
+
 /*----------ルーティング系----------*/
 app.get("/", (req, res) =>{
     res.sendFile(path.join(__dirname, "..", "Frontend", "Home", "Home.html"));
-});
-
-app.get("/CreateHideout", (req, res) => {
-    res.sendFile(path.join(__dirname, "..", "Frontend", "CreateHideout", "CreateHideout.html"));
 });
 
 app.get("/StepIntoHideout", (req, res) => {
