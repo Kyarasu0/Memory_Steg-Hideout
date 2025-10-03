@@ -1,33 +1,94 @@
 @import url('https://fonts.googleapis.com/css2?family=GFS+Didot&display=swap');
 
+/* ---------- body ---------- */
 body {
-    /*大きさの設定*/
     height: 100vh;
     width: 100vw;
-    
-    /*スクロールバーの禁止*/
-    overflow: hidden;
-
-    /*余白設定*/
     margin: 0;
     padding: 0;
 
-    /*写真設定*/
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+
+    overflow: hidden;
+
+    /* 背景 */
     background-image: url(../Element/MyRoom.png);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+
+    font-family: "GFS Didot";
 }
 
-.main-container {
-    /*位置設定*/
+a:hover, button:hover{
+    transform: scale(1.1) !important;
+}
+
+a:active, button:active{
+    background-color: rgba(255, 255, 255, 0.7) !important;
+    transition:background-color 0.1s ease !important;
+}
+
+a:focus, button:focus{
+    border-color: rgb(161, 250, 195) !important;
+    outline: none !important;
+}
+
+/* ---------- header / search panel ---------- */
+header{
+    width: 100%;
+
+    flex-direction: row;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+header .search-panel {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
+    margin: 20px 20px;
+}
+
+header input#galleryIdInput {
+    padding: 10px 15px;
+    font-size: 18px;
+    border-radius: 5px;
+    border: 2px solid white;
+    outline: none;
+    margin-right: 10px;
+    background-color: rgba(255,255,255,0.3);
+    backdrop-filter: blur(10px);
+}
+
+header button#findBtn {
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 5px;
+    border: 2px solid white;
+    background-color: rgba(255,255,255,0.3);
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+header button#findBtn:hover {
+    transform: scale(1.05);
+}
+
+/* ---------- main container ---------- */
+.main-container{
+    /*位置設定*/
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 
     /*大きさ設定*/
-    height: 100%;
+    height: 85%;
     width: 100%;
 
     /*並び順設定*/
@@ -35,159 +96,92 @@ body {
 }
 
 .main-container h1 {
-    font-size: 60px;
-    font-family: "GFS Didot";
+    font-size: 38px;
     font-weight: normal;
-    color: black;
-}
-
-.search-panel{
-    /*位置設定*/
-    position: absolute;
-    top: 20px;
-    right: 20px;
-
-    /* デザイン */
-    background-color: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(10px);
-    padding: 6px;
-    border-radius: 15px;
-    border: 2px solid white;
-
-    /* 中身の配置 */
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    margin-top: 20px;
-}
-
-/* 検索パネルの中の入力欄 */
-.search-panel input {
-    font-size: 14px;
     font-family: "GFS Didot";
-    color: black;
-    padding: 4px 10x;
-    border-radius: 10px;
-    border: 1px solid white;
-    background: rgba(255, 255, 255, 0.7);
-    text-align: center;
-    width: 170px;
+    margin-bottom: 30px;
 }
 
-.search-panel input::placeholder {
-    color: #333;
-}
-
-/* 検索パネルの中のボタン */
-.search-panel button {
-    font-size: 14px;
-    font-family: "GFS Didot";
-    padding: 3px 15px;
-    border-radius: 10px;
-    border: 1px solid white;
-    background: rgba(255, 255, 255, 0.5);
-    cursor: pointer;
-    transition: all 0.2s ease;
-    color: black;
-}
-
-.search-panel button:hover {
-    background: rgba(255, 255, 255, 0.8);
-    transform: scale(1.05);
-}
-
-.home-button {
-    /*位置設定*/
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-
-    /*ボタン枠設定*/
-    background-color: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(10px);
-
-    /*LinkUIの無効化*/
-    color: black;
-    text-decoration: none;
-    /* display: inline-block; */
-
-    /*文字の大きさ設定*/
-    font-size: 30px;
-    font-family: "GFS Didot";
-
-    /*余白設定*/
-    padding: 20px;
-    margin: 0px 30px;
-
-    /*ボタンのデザイン設定*/
-    border-radius: 20px;
-    border: 2px solid white;
-    cursor: pointer; /* マウスカーソルを指の形にするやつ */
-
-    /*animation設定*/
-    transition: transform 0.3s ease;
-}
-
-.upload {
-    /*位置設定*/
+.main-container button.upload {
+    position: relative;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-
-    /*ボタン枠設定*/
-    background-color: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(10px);
-
-    /*LinkUIの無効化*/
-    color: black;
-    text-decoration: none;
-    /* display: inline-block; */
-
-    /*文字の大きさ設定*/
-    font-size: 30px;
-    font-family: "GFS Didot";
-
-    /*余白設定*/
+    align-items: center;
     padding: 30px;
-    margin: 0px 30px;
-
-    /*ボタンのデザイン設定*/
+    margin: 0 30px 30px 30px;
+    font-size: 30px;
     border-radius: 20px;
     border: 2px solid white;
-    cursor: pointer; /* マウスカーソルを指の形にするやつ */
-
-    /*animation設定*/
+    background-color: rgba(255,255,255,0.3);
+    backdrop-filter: blur(10px);
+    cursor: pointer;
     transition: transform 0.3s ease;
 }
 
-.upload:hover, .home-button:hover {
+.main-container button.upload:hover {
     transform: scale(1.1);
 }
 
-.upload:active, .home-button:active {
-    background-color: rgba(255, 255, 255, 0.7);
-    transition: background-color 0.1s ease;
-}
-
-.upload img {
-    /*大きさ設定*/
+.main-container button.upload img {
     width: 30%;
     aspect-ratio: 1 / 1;
-    
-    /*デザイン設定*/
     border-radius: 20px;
+    margin-bottom: 10px;
 }
 
-#gallery {
-    margin-top: 30px;
-    width: 80%;
-    height: 150px;
-    background-color: rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    padding: 10px;
-    
+/* ---------- submain ---------- */
+.submain {
     display: flex;
-    gap: 10px;
-    overflow-x: auto;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 8%;
+    margin-top: 2%;
+    margin-bottom: 1.2%;
+}
+
+.submain a {
+    box-sizing: border-box;
+    height: 100%;
+    padding: 30px 30px;
+    margin: 0 20px;
+    font-size: 30px;
+    border-radius: 20px;
+    border: 2px solid white;
+    background-color: rgba(255,255,255,0.3);
+    backdrop-filter: blur(10px);
+    text-decoration: none;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.submain a:hover {
+    transform: scale(1.1);
+}
+
+.submain a:active {
+    background-color: rgba(255,255,255,0.7);
+}
+
+/* ---------- ギャラリー表示エリア ---------- */
+#gallery {
+    width: 90%;
+    max-width: 1200px;
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+#galleryIdInput{
+    font-family: "GFS Didot";
+}
+
+#findBtn{
+    font-family: "GFS Didot";
 }

@@ -28,7 +28,7 @@ body{
 }
 
 body h1{
-    font-size: 30px;
+    font-size: 33px;
     font-family: "GFS Didot";
     font-weight: normal;
 }
@@ -166,6 +166,11 @@ body h1{
 
     /*文字設定*/
     text-align: left;
+
+    /* 追加 */
+    word-wrap: break-word; /* 長い単語も折り返す */
+    overflow-wrap: break-word;
+    white-space: pre-wrap; /* 改行も保持して折り返す */
 }
 
 #title{
