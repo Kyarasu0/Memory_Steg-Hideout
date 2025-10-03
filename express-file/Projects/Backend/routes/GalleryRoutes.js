@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 const fs = require('fs');
+const { execFile } = require("child_process");
 
 // ギャラリー確認
 router.get('/api/check/:galleryId', (req, res) => {
@@ -27,7 +28,29 @@ router.get('/api/:galleryId/:page', (req, res) => {
     if (pageIndex < 0 || pageIndex >= imageFiles.length)
         return res.status(404).json({ error: 'ページが存在しません' });
 
-    res.json({ totalPages: imageFiles.length, imageUrl: `/tmp/${galleryId}/${imageFiles[pageIndex]}` });
+    const targetImageFile = imageFiles[pageIndex];
+    const imageFullPath = path.join(galleryDir, targetImageFile); // C++に渡す画像ファイルのフルパス
+
+    // C++実行ファイルの場所を指定
+    const exePath = path.join(__dirname, "..", "cpp-file", "separation.exe");
+
+    // C++プログラムを実行。第2引数で画像ファイルのパスを渡す。
+    execFile(exePath, [imageFullPath], (error, stdout, stderr) => {
+        if (error) {
+            console.error("C++実行エラー:", error);
+            return res.status(500).json({ error: "テキストの抽出中にエラーが発生しました。" });
+        }
+        if (stderr) {
+            console.error("C++ stderr:", stderr);
+        }
+
+        // C++の実行結果を、steganographyTextとして返す
+        res.json({ 
+            totalPages: imageFiles.length,
+            imageUrl: `/tmp/${galleryId}/${targetImageFile}`,
+            steganographyText: stdout // C++から抽出されたテキスト
+        });
+    });
 });
 
 // ギャラリー削除
