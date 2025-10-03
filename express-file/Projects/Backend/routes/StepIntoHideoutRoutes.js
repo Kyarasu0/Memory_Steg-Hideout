@@ -3,7 +3,7 @@ const path = require('path');
 const router = express.Router();
 const AdmZip = require('adm-zip');
 const multer = require('multer');
-
+const fs = require('fs');
 
 const upload = multer({ dest: 'uploads/' });
 

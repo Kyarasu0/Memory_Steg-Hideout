@@ -40,7 +40,7 @@ closeBtn.addEventListener('click', closeGallery);
 async function fetchPageData(page) {
     try {
         // サーバに欲しいIDとページを伝える
-        const response = await fetch(`/api/gallery/${galleryId}/${page}`);
+        const response = await fetch(`/Gallery/api/${galleryId}/${page}`);
         const result = await response.json();
         
         // サーバから返ってきた情報で更新
@@ -62,7 +62,7 @@ async function closeGallery() {
     }
 
     try {
-        const response = await fetch(`/api/gallery/${galleryId}`, {
+        const response = await fetch(`/Gallery/api/${galleryId}`, {
             method: 'DELETE',
         });
 

@@ -9,6 +9,11 @@ router.get('/api/check/:galleryId', (req, res) => {
     res.status(fs.existsSync(galleryDir) ? 200 : 404).send();
 });
 
+// ギャラリーのルート
+router.get('/:galleryId', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', '..', 'Frontend', 'Gallery', 'Gallery.html'));
+});
+
 // ギャラリーのページ取得
 router.get('/api/:galleryId/:page', (req, res) => {
     const { galleryId, page } = req.params;
