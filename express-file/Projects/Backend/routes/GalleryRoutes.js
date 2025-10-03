@@ -34,7 +34,7 @@ router.get('/api/:galleryId/:page', (req, res) => {
     const imageFullPath = path.join(galleryDir, targetImageFile); // C++に渡す画像ファイルのフルパス
 
     // C++実行ファイルの場所を指定
-    const exePath = path.join(__dirname, "..", "cpp-file", "separation");
+    const exePath = path.join(__dirname, "..", "cpp-files", "separation");
 
     // C++プログラムを実行。第2引数で画像ファイルのパスを渡す。
     execFile(exePath, [imageFullPath], (error, stdout, stderr) => {
