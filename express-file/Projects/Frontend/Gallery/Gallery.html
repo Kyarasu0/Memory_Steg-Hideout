@@ -7,16 +7,33 @@
     <script src="/Gallery/Gallery.js" defer></script>
 </head>
 <body>
-    <div class="gallery-container">
-        <div id="image-display">
-            </div>
-        <div class="navigation">
+    <div class="main-container">
+        <h1>Memory Steg-Hideout</h1>
+        <div class="all-gallery">
             <button id="prevBtn">＜</button>
-            <span id="pageIndicator"></span>
+
+            <div class="gallery-container">
+                <div class="display">
+                    <div id="image-display"></div>
+                    <div class="text-display">
+                        <div id="title"></div>
+                        <div class="daily-display">
+                            <div id="daily"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="navigation">
+                    <span id="pageIndicator"></span>
+                </div>
+            </div>
+
             <button id="nextBtn">＞</button>
-            <button id="closeBtn">閉鎖</button>
         </div>
     </div>
-    <a class="home-button" href="/">Home</a>
+
+    <div class="submain">
+        <a class="home-button" href="/">Home</a>
+        <button id="closeBtn">Close</button>
+    </div>
 </body>
 </html>

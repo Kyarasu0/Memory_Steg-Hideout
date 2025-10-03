@@ -22,15 +22,16 @@ document.addEventListener('DOMContentLoaded', async () => {
 /* --- ボタン系 --- */
 // ページ移動ボタン
 nextBtn.addEventListener('click', () => {
-    if (currentPage < totalPages) {
-        fetchPageData(currentPage + 1);
-    }
+    let nextPage = currentPage + 1;
+    if (nextPage > totalPages) nextPage = 1;
+    fetchPageData(nextPage);
 });
 prevBtn.addEventListener('click', () => {
-    if (currentPage > 1) {
-        fetchPageData(currentPage - 1);
-    }
+    let prevPage = currentPage - 1;
+    if (prevPage < 1) prevPage = totalPages;
+    fetchPageData(prevPage);
 });
+
 
 // 閉鎖ボタン
 closeBtn.addEventListener('click', closeGallery);
@@ -42,9 +43,14 @@ async function fetchPageData(page) {
         // サーバに欲しいIDとページを伝える
         const response = await fetch(`/Gallery/api/${galleryId}/${page}`);
         const result = await response.json();
+
+        console.log("サーバーからのレスポンス:", result); // ここで確認
         
         // サーバから返ってきた情報で更新
         imageDisplay.innerHTML = `<img src="${result.imageUrl}">`;
+        document.getElementById('title').textContent = result.title;
+        document.getElementById('daily').textContent = result.steganographyText;
+
         currentPage = page;
         totalPages = result.totalPages;
         pageIndicator.textContent = `${currentPage} / ${totalPages}`;

@@ -46,12 +46,16 @@ router.get('/api/:galleryId/:page', (req, res) => {
             console.error("C++ stderr:", stderr);
         }
 
+        // steghideに失敗したら"null"を返す
         const stegoText = stdout && stdout.trim() !== '' ? stdout.trim() : "null";
+        // 名前から拡張子を排除
+        const title = path.parse(targetImageFile).name;
 
         // C++の実行結果を、steganographyTextとして返す
         res.json({ 
             totalPages: imageFiles.length,
             imageUrl: `/tmp/${galleryId}/${targetImageFile}`,
+            title: title, // 写真タイトルを追加
             steganographyText: stegoText // C++から抽出されたテキスト
         });
     });
