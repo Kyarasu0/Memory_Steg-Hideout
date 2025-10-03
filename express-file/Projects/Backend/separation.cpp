@@ -19,16 +19,15 @@ namespace fs = std::filesystem;
   // using json = nlohmann::json;
 
 int main(int argc, char* argv[]){
-    if (argc < 3){
+    if (argc < 2){
         // cerr: character error stream, endl: end line
-        std::cerr << "Usage: separation <imagefullpath> <output>" << std::endl;
+        std::cerr << "Usage: separation <imagefullpath>" << std::endl;
         // 異常終了
         return -1;
     }
 
     // 引数をそれぞれ変数に代入
     std::string imagefullpath = argv[1];
-    std::string output = argv[2];
 
     // pathの配列
     std::vector<fs::path> files;
@@ -42,27 +41,18 @@ int main(int argc, char* argv[]){
 
     for (size_t i = 0; i < files.size(); ++i){
 
-        // 元画像をコピー
-        fs::path outputImage = fs::path(output) / files[i].filename();
-        fs::copy_file(files[i], outputImage, fs::copy_options::overwrite_existing);
+        std::cout << "----- Extracting from: " << files[i] << " -----" << std::endl;
 
-        // 日記を出力するファイル名
-        fs::path output = fs::path(output) / (files[i].stem().string() + "_diary.txt");
-
-        // steghideコマンドを実行
-        std::string cmd = "steghide extract -sf \"" + files[i].string() + "\" -xf \"" + (output.stem().string() + ".txt") + "\" -p \"\" -q";
-
-
-        //終了を告知、cout: character output(理由不明)
-        std::cout << "Executing: " << cmd << std::endl;
+        // steghide extract（出力先指定なし → stdoutに出る）
+        std::string cmd = "steghide extract -sf \"" + files[i].string() + "\" -p \"\" -f";
 
         // コマンドを実行
         int ret = system(cmd.c_str());
-        if (ret == 0){
-            std::cout << "Steghide success for file: " << files[i] << std::endl;
-        }else{
-            std::cout << "Steghide failed for file: " << files[i] << std::endl;
+        if (ret != 0){
+            std::cerr << "Steghide extract failed for file: " << files[i] << std::endl;
         }
+
+        std::cout << "-----------------------------------------------" << std::endl;
     }
     return 0;
 }
