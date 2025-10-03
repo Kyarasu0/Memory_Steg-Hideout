@@ -27,32 +27,32 @@ int main(int argc, char* argv[]){
     }
 
     // 引数をそれぞれ変数に代入
-    std::string imagefullpath = argv[1];
-
-    // pathの配列
-    std::vector<fs::path> files;
-    for (const auto& entry : fs::directory_iterator(imagefullpath)) {
-        // 通常のファイルかを確認(ディレクトリなどを除外)
-        if (entry.is_regular_file() && (entry.path().extension() == ".jpg" ||  entry.path().extension() == ".jpeg" || entry.path().extension() == ".JPG")) {
-            // 通常のファイルかを確認出来たらpathを配列に追加
-            files.push_back(entry.path());
-        }
+    fs::path file = argv[1];
+    
+    // ファイルが存在するか確認
+    if (!fs::exists(file) || !fs::is_regular_file(file)) {
+        std::cerr << "Error: file does not exist -> " << file << std::endl;
+        return -1;
     }
 
-    for (size_t i = 0; i < files.size(); ++i){
+    // 拡張子チェック
+    std::string ext = file.extension().string();
+    if (!(ext == ".jpg" || ext == ".jpeg" || ext == ".JPG")) {
+        std::cerr << "Error: not a supported image file -> " << file << std::endl;
+        return -1;
+    }
 
-        std::cout << "----- Extracting from: " << files[i] << " -----" << std::endl;
+    std::cout << "----- Extracting from: " << file << " -----" << std::endl;
 
-        // steghide extract（出力先指定なし → stdoutに出る）
-        std::string cmd = "steghide extract -sf \"" + files[i].string() + "\" -p \"\" -f";
+    // steghide extract（出力先指定なし → stdoutに出る）
+    std::string cmd = "steghide extract -sf \"" + file.string() + "\" -p \"\" -f";
 
         // コマンドを実行
         int ret = system(cmd.c_str());
         if (ret != 0){
-            std::cerr << "Steghide extract failed for file: " << files[i] << std::endl;
+            std::cerr << "Steghide extract failed for file: " << file << std::endl;
         }
 
         std::cout << "-----------------------------------------------" << std::endl;
-    }
     return 0;
 }
