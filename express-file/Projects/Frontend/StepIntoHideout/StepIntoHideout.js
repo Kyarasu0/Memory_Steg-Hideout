@@ -17,7 +17,7 @@ async function handleInitialUpload() {
     formData.append('zipFile', file);
 
     try {
-        const response = await fetch('/step-in', {
+        const response = await fetch('/StepIntoHideout/step-in', {
             method: 'POST',
             body: formData,
         });
@@ -43,7 +43,7 @@ async function findGallery() {
     } 
 
     try {
-        const response = await fetch(`/api/gallery/check/${galleryId}`);
+        const response = await fetch(`/Gallery/api/check/${galleryId}`);
 
         if (response.ok) {
             window.location.href = `/gallery/${galleryId}`;

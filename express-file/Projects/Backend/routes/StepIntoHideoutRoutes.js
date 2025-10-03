@@ -3,7 +3,8 @@ const path = require('path');
 const router = express.Router();
 const AdmZip = require('adm-zip');
 const multer = require('multer');
-
+const fs = require('fs');
+const { v4: uuidv4 } = require("uuid");
 
 const upload = multer({ dest: 'uploads/' });
 
@@ -14,7 +15,7 @@ router.get("/", (req, res) => {
 // ZIPアップロード
 router.post("/step-in", upload.single("zipFile"), (req, res) => {
     const zipPath = req.file.path;
-    const galleryId = Math.random().toString(36).substring(2, 12);
+    const galleryId = uuidv4();
     const extractDir = path.join(__dirname, '..', 'tmp', galleryId);
 
     if (!fs.existsSync(extractDir)) fs.mkdirSync(extractDir, { recursive: true });

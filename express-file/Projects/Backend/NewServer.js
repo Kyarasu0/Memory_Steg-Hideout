@@ -14,8 +14,10 @@ app.use('/tmp', express.static(path.join(__dirname, 'tmp')));
 // ルーターの登録
 const createHideoutRoutes = require('./routes/CreateHideoutRoutes');
 const galleryRoutes = require('./routes/GalleryRoutes');
+const stepIntoHideoutRoutes = require('./routes/StepIntoHideoutRoutes');
 app.use("/CreateHideout", createHideoutRoutes);
 app.use("/Gallery", galleryRoutes);
+app.use("/StepIntoHideout", stepIntoHideoutRoutes);
 
 // ルート（トップページなど）
 app.get("/", (req, res) => {
