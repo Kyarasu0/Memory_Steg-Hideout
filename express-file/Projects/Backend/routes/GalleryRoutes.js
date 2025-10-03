@@ -2,33 +2,6 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 const fs = require('fs');
-const multer = require('multer');
-const AdmZip = require('adm-zip');
-
-const upload = multer({ dest: 'uploads/' });
-
-// ZIPアップロード
-router.post("/step-in", upload.single("zipFile"), (req, res) => {
-    const zipPath = req.file.path;
-    const galleryId = Math.random().toString(36).substring(2, 12);
-    const extractDir = path.join(__dirname, '..', 'tmp', galleryId);
-
-    if (!fs.existsSync(extractDir)) fs.mkdirSync(extractDir, { recursive: true });
-
-    try {
-        const zip = new AdmZip(zipPath);
-        zip.extractAllTo(extractDir, true);
-        fs.unlinkSync(zipPath);
-
-        const imageFiles = fs.readdirSync(extractDir)
-                             .filter(f => /\.(jpg|jpeg|png|gif)$/i.test(f));
-        if (imageFiles.length === 0) return res.status(400).json({ error: '画像が見つかりません。' });
-
-        res.redirect(`/gallery/${galleryId}`);
-    } catch (err) {
-        res.status(500).json({ error: "ZIP処理に失敗しました。" });
-    }
-});
 
 // ギャラリー確認
 router.get('/api/check/:galleryId', (req, res) => {

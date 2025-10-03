@@ -70,7 +70,7 @@ next.addEventListener("click", async () => {
 
         try {
             // ファイルの処理が全て終わったらまとめて送信
-            const response = await fetch("/create-hideout", { 
+            const response = await fetch("/CreateHideout/create", { 
                 method: "POST", body: formData
             });
 
