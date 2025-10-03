@@ -1,58 +1,64 @@
-// 標準入出力用
 #include <iostream>
-// ファイル入出力用
 #include <fstream>
-// ファイル/ディレクトリ操作用
 #include <filesystem>
-// 動的に配列を操作する用
-#include <vector>
-// 文字列操作用
-#include <string>
-// C言語ライブラリ
 #include <cstdlib>
-// json操作用
-  // #include <nlohmann/json.hpp>
 
-// 名前空間の別名
 namespace fs = std::filesystem;
-// 型の別名
-  // using json = nlohmann::json;
 
-int main(int argc, char* argv[]){
-    if (argc < 2){
-        // cerr: character error stream, endl: end line
+int main(int argc, char* argv[]) {
+    if (argc < 2) {
         std::cerr << "Usage: separation <imagefullpath>" << std::endl;
-        // 異常終了
         return -1;
     }
 
-    // 引数をそれぞれ変数に代入
     fs::path file = argv[1];
-    
-    // ファイルが存在するか確認
+
     if (!fs::exists(file) || !fs::is_regular_file(file)) {
         std::cerr << "Error: file does not exist -> " << file << std::endl;
         return -1;
     }
 
-    // 拡張子チェック
     std::string ext = file.extension().string();
     if (!(ext == ".jpg" || ext == ".jpeg" || ext == ".JPG")) {
         std::cerr << "Error: not a supported image file -> " << file << std::endl;
         return -1;
     }
 
-    std::cout << "----- Extracting from: " << file << " -----" << std::endl;
+    // 一時的に出力ファイルを作る
+    fs::path tmpFile = fs::temp_directory_path() / "extracted.txt";
 
-    // steghide extract（出力先指定なし → stdoutに出る）
-    std::string cmd = "steghide extract -sf \"" + file.string() + "\" -p \"\" -f";
+    // steghide extract コマンドを作る（出力先を tmpFile に指定）
+    std::string cmd = "steghide extract -sf \"" + file.string() + "\" -p \"\" -xf \"" + tmpFile.string() + "\" -f 2>/dev/null";
 
-        // コマンドを実行
-        int ret = system(cmd.c_str());
-        if (ret != 0){
-            std::cerr << "Steghide extract failed for file: " << file << std::endl;
-        }
+    // コマンド実行
+    int ret = system(cmd.c_str());
+    if (ret != 0) {
+        std::cerr << "Steghide extract failed for file: " << file << std::endl;
+        return -1;
+    }
 
-        std::cout << "-----------------------------------------------" << std::endl;
+    // 抽出したファイルが存在するか確認
+    if (!fs::exists(tmpFile)) {
+        std::cerr << "No embedded data found in: " << file << std::endl;
+        return -1;
+    }
+
+    // 抽出したファイルの中身を表示
+    std::ifstream in(tmpFile);
+    if (!in) {
+        std::cerr << "Failed to open extracted file" << std::endl;
+        return -1;
+    }
+
+    std::string line;
+    while (std::getline(in, line)) {
+        std::cout << line << std::endl;  // これだけを出力
+    }
+
+    in.close();
+
+    // 一時ファイルを削除
+    fs::remove(tmpFile);
+
     return 0;
 }
