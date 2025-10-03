@@ -4,6 +4,8 @@ const path = require('path');
 const fs = require('fs');
 const { execFile } = require("child_process");
 
+const app = express();
+
 // ギャラリー確認
 router.get('/api/check/:galleryId', (req, res) => {
     const galleryDir = path.join(__dirname, '..', 'tmp', req.params.galleryId);
@@ -22,7 +24,7 @@ router.get('/api/:galleryId/:page', (req, res) => {
 
     if (!fs.existsSync(galleryDir)) return res.status(404).json({ error: 'ギャラリーが見つかりません' });
 
-    const imageFiles = fs.readdirSync(galleryDir).filter(f => /\.(jpg|jpeg|png|gif)$/i.test(f));
+    const imageFiles = fs.readdirSync(galleryDir).filter(f => /\.(jpg|jpeg|JPG)$/i.test(f));
     const pageIndex = parseInt(page, 10) - 1;
 
     if (pageIndex < 0 || pageIndex >= imageFiles.length)
@@ -32,23 +34,25 @@ router.get('/api/:galleryId/:page', (req, res) => {
     const imageFullPath = path.join(galleryDir, targetImageFile); // C++に渡す画像ファイルのフルパス
 
     // C++実行ファイルの場所を指定
-    const exePath = path.join(__dirname, "..", "cpp-file", "separation.exe");
+    const exePath = path.join(__dirname, "..", "cpp-file", "separation");
 
     // C++プログラムを実行。第2引数で画像ファイルのパスを渡す。
     execFile(exePath, [imageFullPath], (error, stdout, stderr) => {
         if (error) {
             console.error("C++実行エラー:", error);
-            return res.status(500).json({ error: "テキストの抽出中にエラーが発生しました。" });
+            // return res.status(500).json({ error: "テキストの抽出中にエラーが発生しました。" });
         }
         if (stderr) {
             console.error("C++ stderr:", stderr);
         }
 
+        const stegoText = stdout && stdout.trim() !== '' ? stdout.trim() : "null";
+
         // C++の実行結果を、steganographyTextとして返す
         res.json({ 
             totalPages: imageFiles.length,
             imageUrl: `/tmp/${galleryId}/${targetImageFile}`,
-            steganographyText: stdout // C++から抽出されたテキスト
+            steganographyText: stegoText // C++から抽出されたテキスト
         });
     });
 });
