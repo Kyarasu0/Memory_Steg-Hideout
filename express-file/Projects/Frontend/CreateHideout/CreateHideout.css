@@ -81,6 +81,11 @@ a:active, button:active{
     transition:background-color 0.1s ease;
 }
 
+button:focus{
+    border-color: rgb(161, 250, 195);
+    outline: none;
+}
+
 img{
     /*大きさ設定*/
     width: 30%;
@@ -149,6 +154,11 @@ img{
 .submain a:active, .submain button:active{
     background-color: rgba(255, 255, 255, 0.7);
     transition:background-color 0.1s ease;
+}
+
+.submain a:focus, .submain button:focus{
+    border-color: rgb(161, 250, 195);
+    outline: none;
 }
 
 /*AIより → ざっくり解読済み*/
