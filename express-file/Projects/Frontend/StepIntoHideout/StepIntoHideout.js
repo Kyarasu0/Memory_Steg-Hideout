@@ -3,6 +3,10 @@ const gallery = document.getElementById("gallery");
 const galleryIdInput = document.getElementById("galleryIdInput");
 const findBtn = document.getElementById("findBtn");
 const errorMessage = document.getElementById("errorMessage");
+const uploadButton = document.getElementById("uploadButton");
+
+// upload buttonの設定
+uploadButton.addEventListener("click", () => {zipUploader.click()});
 
 // サーバーにファイルを送る
 zipUploader.addEventListener('change', handleInitialUpload);
@@ -26,11 +30,11 @@ async function handleInitialUpload() {
             window.location.href = response.url;
         } else {
             const result = await response.json();
-            gallery.innerHTML = `エラー: ${result.error}`;
+            alert(`エラー: ${result.error}`);
         }
 
     } catch (error) {
-        gallery.innerHTML = 'エラーが発生しました。';
+        alert('エラーが発生しました。');
         console.error(error);
     }
 }
