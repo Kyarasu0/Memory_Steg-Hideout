@@ -51,7 +51,8 @@
 このWebサイトのUIにはBlenderを使いました！なのでこの部屋や観葉植物はREADME筆者のこの私「Kyarasu」が既製品やAIを使わず、0からこの手でモデリングしたものになります！<br>
 ぜひ見ていってください！<br>
 <br>
-## 使用技術<br>
+## 使用技術
+
 HTML, CSS, JS, Blender, C++, Docker, GitHub
 <!-- 使用技術を入力してください -->
 
